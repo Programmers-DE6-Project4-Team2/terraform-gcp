@@ -53,3 +53,14 @@ resource "google_project_iam_binding" "bigquery_admin" {
     for email in var.project_members : "user:${email}"
   ]
 }
+
+# IAM bindings for project members - IAM Admin access
+resource "google_project_iam_binding" "iam_admin" {
+  count   = length(var.project_members) > 0 ? 1 : 0
+  project = var.project_id
+  role    = "roles/resourcemanager.projectIamAdmin"
+  
+  members = [
+    for email in var.project_members : "user:${email}"
+  ]
+}
