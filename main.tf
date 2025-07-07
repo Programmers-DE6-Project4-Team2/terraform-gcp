@@ -64,3 +64,25 @@ resource "google_project_iam_binding" "iam_admin" {
     for email in var.project_members : "user:${email}"
   ]
 }
+
+# IAM bindings for project members - Composer User access
+resource "google_project_iam_binding" "composer_user" {
+  count   = length(var.project_members) > 0 ? 1 : 0
+  project = var.project_id
+  role    = "roles/composer.user"
+  
+  members = [
+    for email in var.project_members : "user:${email}"
+  ]
+}
+
+# IAM bindings for project members - Composer Admin access
+resource "google_project_iam_binding" "composer_admin" {
+  count   = length(var.project_members) > 0 ? 1 : 0
+  project = var.project_id
+  role    = "roles/composer.admin"
+  
+  members = [
+    for email in var.project_members : "user:${email}"
+  ]
+}
