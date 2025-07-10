@@ -76,3 +76,25 @@ resource "google_project_iam_binding" "artifact_registry_admin" {
     for email in var.project_members : "user:${email}"
   ]
 }
+
+# IAM bindings for project members - Service Usage Consumer access
+resource "google_project_iam_binding" "service_usage_consumer" {
+  count   = length(var.project_members) > 0 ? 1 : 0
+  project = var.project_id
+  role    = "roles/serviceusage.serviceUsageConsumer"
+  
+  members = [
+    for email in var.project_members : "user:${email}"
+  ]
+}
+
+# IAM bindings for project members - Cloud Build Editor access
+resource "google_project_iam_binding" "cloud_build_editor" {
+  count   = length(var.project_members) > 0 ? 1 : 0
+  project = var.project_id
+  role    = "roles/cloudbuild.builds.editor"
+  
+  members = [
+    for email in var.project_members : "user:${email}"
+  ]
+}
