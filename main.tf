@@ -1,14 +1,4 @@
-resource "google_storage_bucket" "raw_data" {
-  name          = "${var.project_id}-raw-data"
-  location      = var.region
-  force_destroy = true
-}
-
-resource "google_storage_bucket" "de6_ez2" {
-  name          = "de6-ez2"
-  location      = var.region
-  force_destroy = true
-}
+# Storage buckets removed - managed manually to prevent data loss
 
 # IAM bindings for project members - Storage Admin access
 resource "google_project_iam_binding" "storage_admin" {
