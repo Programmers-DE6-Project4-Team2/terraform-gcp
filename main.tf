@@ -88,3 +88,14 @@ resource "google_project_iam_binding" "cloud_build_editor" {
     for email in var.project_members : "user:${email}"
   ]
 }
+
+# IAM bindings for project members - Logging Viewer access (for Cloud Run job logs)
+resource "google_project_iam_binding" "logging_viewer" {
+  count   = length(var.project_members) > 0 ? 1 : 0
+  project = var.project_id
+  role    = "roles/logging.viewer"
+  
+  members = [
+    for email in var.project_members : "user:${email}"
+  ]
+}
